@@ -50,7 +50,7 @@
                             <select name="receive_payment_number" id="paymentNumber" class="w-full h-[32px]  px-[12px] bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected>Select Number</option>
                                     @foreach ($accounts as $account)
-                                    <option value=`{{$account->account}}`>{{$account->account}} ({{$account->method}})</option>
+                                    <option value="{{$account->account}}">{{$account->account}} ({{$account->method}})</option>
                                     @endforeach
                             </select>
                             @error('receive_payment_number')
