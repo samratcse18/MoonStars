@@ -11,7 +11,7 @@
   </div>
 </nav>
 @include('user/user_navbar2')
-<div class="mt-[58px]"></div>
+<div class="lg:mt-[58px] mt-0"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <script>
         // JavaScript code to handle the dropdown functionality

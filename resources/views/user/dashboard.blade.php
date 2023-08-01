@@ -14,7 +14,7 @@
 @include('user/side_bar')
 @include('../partial/error_success')
 <section id="mainContent" class="lg:ml-[250px] ml-0 mb-[100px] lg:mb-0">
-    <div class="flex justify-center items-center lg:pt-8 pt-2 px-2 lg:px-0">
+    <div class="flex justify-center items-center lg:pt-8 py-2 px-2 lg:px-0">
         <h1 class="text-xl lg:text-2xl text-red-400">💖💖 Your each Refer user when Deposit you can get Extra 50 Taka 💖💖</h1>
     </div>
     <div class="flex justify-center">
