@@ -26,6 +26,9 @@ else{
  @include('partial/error_success')
  <div class="mt-[58px]"></div>
  <section id="mainContent" class="">
+    <div class="flex justify-center items-center lg:pt-8 pt-2 px-2 lg:px-0">
+        <h1 class="text-xl lg:text-2xl text-red-400">💖💖 Your each Refer user when Deposit you can get Extra 50 Taka 💖💖</h1>
+    </div>
     <div class="flex justify-center">
         <div class="my-8 flex flex-col lg:flex-row justify-center lg:space-x-2 space-y-2 lg:space-y-0 lg:w-[80%] w-[95%]">
             <div class="lg:w-[50%] w-[100%] lg:py-8 py-0 flex flex-col justify-center items-center space-y-4">
