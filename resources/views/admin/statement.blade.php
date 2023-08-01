@@ -25,7 +25,7 @@
             <div id="depositMenu" class="mt-4">
                 <h1 class="ml-8">All Deposit</h1>
                 <h1 class="ml-8">Deposit Amount: {{$total_deposit}}</h1>
-                <div class=" overflow-x-auto p-6">
+                <div class=" overflow-x-auto h-screen overflow-y-auto p-6">
                     <table class="w-full text-sm text-left text-white dark:text-gray-400">
                         <thead>
                             <tr class=" border-b dark:bg-gray-800 dark:border-gray-700">
@@ -120,7 +120,7 @@
             <div id="withdrawMenu" class="hidden">
                 <h1 class="ml-8">All Withdraw</h1>
                 <h1 class="ml-8">Withdraw Amount: {{$total_withdraw}}</h1>
-                <div class=" overflow-x-auto p-6">
+                <div class=" overflow-x-auto h-screen overflow-y-auto p-6">
                     <table class="w-full text-sm text-left text-white dark:text-gray-400">
                         <thead>
                             <tr class=" border-b dark:bg-gray-800 dark:border-gray-700">

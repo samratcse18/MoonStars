@@ -18,8 +18,8 @@
                 <h1 class="w-full  border-b border-black p-2  text-2xl"><i class="mr-2 fas fa-sticky-note"></i>All User List</h1>
             </div>
             <div id="depositMenu" class="mt-4">
-                <div class=" overflow-x-auto p-6">
-                    <table class="w-full text-sm text-left text-white dark:text-gray-400">
+                <div class=" overflow-x-auto h-screen overflow-y-auto p-6">
+                    <table class="w-full h-[100px] text-sm text-left text-white dark:text-gray-400">
                         <thead>
                             <tr class=" border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th class="px-3 py-3">
