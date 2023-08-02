@@ -198,6 +198,24 @@ class UserController extends Controller
         $total_deposit = 0;
         $total_withdraw = 0;
         $total_reward = 0;
+
+        $refer_code = $user->id . $user->username;
+        $flag = false;
+        $refer_balance = 0;
+        $promo_codes = DB::select('SELECT * FROM users WHERE promocode = ?', [$refer_code]);
+        foreach($promo_codes as $promo_code){
+            $referUsers = DB::select('SELECT * FROM deposits WHERE UID = ?', [$promo_code->id]);
+            foreach ($referUsers as $referUser) {
+                if($referUser->status == "approve"){
+                    $flag = true;
+                }
+            }
+            if($flag == true){
+                $refer_balance = $refer_balance + 50;
+            }
+            $flag = false;
+        }
+
         foreach($withdraws as $withdraw){
             if ($withdraw->status == "approve" || $withdraw->status == "pending")
                     {
@@ -213,7 +231,7 @@ class UserController extends Controller
         foreach($rewards as $reward){
                 $total_reward = intval($total_reward) + intval($reward->reward_balance); 
         }
-        $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward) - intval($total_withdraw);
+        $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward) + $refer_balance - intval($total_withdraw);
                             
         $request->session()->put('total_withdraw', $total_withdraw);
         $request->session()->put('total_deposit', $total_deposit);
@@ -231,6 +249,24 @@ class UserController extends Controller
         $total_deposit = 0;
         $total_withdraw = 0;
         $total_reward = 0;
+
+        $refer_code = $user->id . $user->username;
+        $flag = false;
+        $refer_balance = 0;
+        $promo_codes = DB::select('SELECT * FROM users WHERE promocode = ?', [$refer_code]);
+        foreach($promo_codes as $promo_code){
+            $referUsers = DB::select('SELECT * FROM deposits WHERE UID = ?', [$promo_code->id]);
+            foreach ($referUsers as $referUser) {
+                if($referUser->status == "approve"){
+                    $flag = true;
+                }
+            }
+            if($flag == true){
+                $refer_balance = $refer_balance + 50;
+            }
+            $flag = false;
+        }
+
         foreach($withdraws as $withdraw){
             if ($withdraw->status == "approve" || $withdraw->status == "pending")
                     {
@@ -246,7 +282,7 @@ class UserController extends Controller
         foreach($rewards as $reward){
                 $total_reward = intval($total_reward) + intval($reward->reward_balance); 
         }
-        $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward) - intval($total_withdraw);
+        $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward) + $refer_balance - intval($total_withdraw);
                             
         $request->session()->put('total_withdraw', $total_withdraw);
         $request->session()->put('total_deposit', $total_deposit);
@@ -305,9 +341,8 @@ class UserController extends Controller
             'password' => 'required|min:8|max:16',
         ]);
             $user = Auth::user();
-            $balance = session('total_balance');
-        if($balance >= "1200"){
-            if($request->amount >= "1000"){
+            $balance = session('total_balance')-200;
+            if($request->amount >= "1000" && $request->amount <= $balance){
                 if(Hash::check($request->password, $user->password)){
                     $new = new Withdraw();
                     $new->UID=$user->id;
@@ -325,12 +360,8 @@ class UserController extends Controller
                 }
             }
             else{
-                return redirect()->route('user.finance')->with('error','Withdraw Amount must be more then or Equal 1000');
+                return redirect()->route('user.finance')->with('error','Withdraw Amount must be more then or Equal 1000 and less then your Balance.Also you can not withdraw initial balance 200');
             }
-        }
-        else{
-            return redirect()->route('user.finance')->with('error','Withdraw Amount must be more then or Equal 1200 you can not withdraw initial balance 200');
-        }
     } 
     public function cancel_deposit($id){
         DB::delete('delete from deposits where id = ?',[$id]);
@@ -351,6 +382,24 @@ class UserController extends Controller
         $total_withdraw = 0;
         $total_reward = 0;
         $date = 0;
+
+        $refer_code = $user->id . $user->username;
+        $flag = false;
+        $refer_balance = 0;
+        $promo_codes = DB::select('SELECT * FROM users WHERE promocode = ?', [$refer_code]);
+        foreach($promo_codes as $promo_code){
+            $referUsers = DB::select('SELECT * FROM deposits WHERE UID = ?', [$promo_code->id]);
+            foreach ($referUsers as $referUser) {
+                if($referUser->status == "approve"){
+                    $flag = true;
+                }
+            }
+            if($flag == true){
+                $refer_balance = $refer_balance + 50;
+            }
+            $flag = false;
+        }
+
         foreach($rewards as $reward){
             $date = $reward->date;
         }
@@ -369,7 +418,7 @@ class UserController extends Controller
         foreach($rewards as $reward){
                 $total_reward = intval($total_reward) + intval($reward->reward_balance); 
         }
-        $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward) - intval($total_withdraw);
+        $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward)+ $refer_balance - intval($total_withdraw);
                             
         $request->session()->put('total_withdraw', $total_withdraw);
         $request->session()->put('total_deposit', $total_deposit);

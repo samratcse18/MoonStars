@@ -98,7 +98,7 @@
                 <div id="withdrawMenu" class="hidden">
                     <h1 class="ml-8 mt-4 font-bold text-2xl">Request A Withdraw</h1>
                     <h1 class="ml-8 mt-4"><span class="text-lg text-[#dc3545]">**</span>Every Withdraw Request has 10% charge</h1>
-                    <h1 class="ml-8 "><span class="text-lg text-[#dc3545]">**</span>Minimum Withdraw Request 1000 Taka</h1>
+                    <h1 class="ml-8 "><span class="text-lg text-[#dc3545]">**</span>Minimum Withdraw Request 1000 Taka. Also you can not withdraw initial balance 200</h1>
                     <h1 class="ml-8 "><span class="text-lg text-[#dc3545]">**</span>We will pay you every night between 8pm and 9pm</h1>
                     <form class="" action="{{ route('user.withdraw') }}" method="post">
                     @csrf
