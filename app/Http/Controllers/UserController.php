@@ -448,6 +448,24 @@ class UserController extends Controller
                 $total_deposit = 0;
                 $total_withdraw = 0;
                 $total_reward = 0;
+
+                $refer_code_extra = $promo_code->id . $promo_code->username;
+                $flag_extra = false;
+                $refer_balance_extra = 0;
+                $promo_codes_extra = DB::select('SELECT * FROM users WHERE promocode = ?', [$refer_code_extra]);
+                foreach($promo_codes_extra as $promo_code_extra){
+                    $referUsers_extra = DB::select('SELECT * FROM deposits WHERE UID = ?', [$promo_code_extra->id]);
+                    foreach ($referUsers_extra as $referUser_extra) {
+                        if($referUser_extra->status == "approve"){
+                            $flag_extra = true;
+                        }
+                    }
+                    if($flag_extra == true){
+                        $refer_balance_extra = $refer_balance_extra + 50;
+                    }
+                    $flag_extra = false;
+                }
+
                 foreach($withdraws as $withdraw){
                     if ($withdraw->status == "approve" || $withdraw->status == "pending")
                             {
@@ -463,7 +481,7 @@ class UserController extends Controller
                 foreach($rewards as $reward){
                         $total_reward = intval($total_reward) + intval($reward->reward_balance); 
                 }
-                $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward) - intval($total_withdraw);
+                $total_balance = intval($balance) + intval($total_deposit) + intval($total_reward) + $refer_balance_extra - intval($total_withdraw);
                 $refer_balance = $refer_balance + ($total_balance * .005);
             }
             $flag = false;

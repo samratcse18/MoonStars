@@ -26,8 +26,9 @@ else{
  @include('partial/error_success')
  <div class="mt-[58px]"></div>
  <section id="mainContent" class="">
-    <div class="flex justify-center items-center lg:pt-8 pt-2 px-2 lg:px-0">
-        <h1 class="text-xl lg:text-2xl text-red-400">💖💖 Your each Refer user when Deposit you can get Extra 50 Taka 💖💖</h1>
+    <div class="flex flex-col justify-center items-center space-y-2 lg:pt-8 pt-2 px-2 lg:px-0">
+        <h1 class="text-xl lg:text-2xl text-center text-red-400">💖 Your Each Refer User When Deposit You Can Get Extra 50 Taka 💖</h1>
+        <h1 class="text-xl lg:text-2xl text-white">💖 New User Get 200 Taka Bonus 💖</h1>
     </div>
     <div class="flex justify-center">
         <div class="my-8 flex flex-col lg:flex-row justify-center lg:space-x-2 space-y-2 lg:space-y-0 lg:w-[80%] w-[95%]">
@@ -91,7 +92,7 @@ else{
                     class="text-xl font-bold leading-tight tracking-tight  md:text-2xl dark:text-white">
                     Sign in
                 </h1>
-                <form class="space-y-4 md:space-y-6" action="{{ route('user.doLogin') }}" method="post">
+                <form id="login_Form" class="space-y-4 md:space-y-6" action="{{ route('user.doLogin') }}" method="post">
                     @csrf
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium  dark:text-white">Your
@@ -112,9 +113,53 @@ else{
                         <small class="text-danger text-yellow-400">{{ $message }}</small>
                         @enderror
                     </div>
-                    <button type="submit"
+                    <button type="submit" id="login_Button" onclick="disableButton()"
                         class=" text-white bg-[#ff4551] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign
                         in</button>
+                </form>
+                <div>
+                    <h1 id="forget_password" class="text-red-500 text-center cursor-pointer">🔐Forget Password?</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+ <section>
+    <div class="flex flex-col items-center">
+        <div id="forget_password_model" class="hidden w-full px-6 my-16 mx-auto sm:max-w-lg">
+            <div class="p-6 space-y-4 md:space-y-6  bg-[#51236e] rounded-lg sm:p-8">
+                <div class="flex justify-end">
+                    <div id="forget_password_closeButton" class="bg-white cursor-pointer">
+                        <i class="fa fa-times mx-1" style="font-size: 24px; color: #cc0000;"></i>
+                    </div>
+                </div>
+                <h1
+                    class="text-xl font-bold leading-tight tracking-tight  md:text-2xl dark:text-white">
+                    Forget Password
+                </h1>
+                <form class="space-y-4 md:space-y-6" >
+                    @csrf
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium  dark:text-white">Your
+                            Email</label>
+                        <input type="email" name="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="name@gmail.com">
+                        @error('email')
+                        <small class="text-danger text-yellow-400">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium dark:text-white">New Password</label>
+                        <input type="password" name="password" id="password" placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        @error('password')
+                        <small class="text-danger text-yellow-400">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <button type="submit"
+                        class=" text-white bg-[#ff4551] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Recover Password</button>
                 </form>
             </div>
         </div>
@@ -214,9 +259,17 @@ else{
             document.getElementById("loginModal").classList.remove("hidden");
             document.getElementById("mainContent").classList.add("hidden");
         });
+        document.getElementById("forget_password").addEventListener("click", function() {
+            document.getElementById("loginModal").classList.add("hidden");
+            document.getElementById("forget_password_model").classList.remove("hidden");
+        });
 
         document.getElementById("logincloseButton").addEventListener("click", function() {
             document.getElementById("loginModal").classList.add("hidden");
+            document.getElementById("mainContent").classList.remove("hidden");
+        });
+        document.getElementById("forget_password_closeButton").addEventListener("click", function() {
+            document.getElementById("forget_password_model").classList.add("hidden");
             document.getElementById("mainContent").classList.remove("hidden");
         });
         document.getElementById("signupButton").addEventListener("click", function() {
@@ -230,6 +283,8 @@ else{
         });
         const loginButton = document.getElementById('loginButton');
         const loginModal = document.getElementById('loginModal');
+        const forget_password = document.getElementById('forget_password');
+        const forget_password_model = document.getElementById('forget_password_model');
         const signupButton = document.getElementById('signupButton');
         const signupModal = document.getElementById('signupModal');
         const mainContent = document.getElementById('mainContent');
@@ -239,10 +294,23 @@ else{
             }
         });
         window.addEventListener("click", function(event) {
+            if (!forget_password.contains(event.target) && !forget_password_model.contains(event.target)) {
+                forget_password_model.classList.add("hidden");
+            }
+        });
+        window.addEventListener("click", function(event) {
             if (!signupButton.contains(event.target) && !signupModal.contains(event.target)) {
                 signupModal.classList.add("hidden");
             }
         });
+    </script>
+    <script>
+        function disableButton() {
+        const submitButton = document.getElementById('login_Button');
+        submitButton.disabled = true;
+        const loginForm = document.getElementById('login_Form');
+        loginForm.submit();
+        }
     </script>
 </body>
 </html>

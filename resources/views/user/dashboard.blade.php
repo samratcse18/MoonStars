@@ -14,8 +14,9 @@
 @include('user/side_bar')
 @include('../partial/error_success')
 <section id="mainContent" class="lg:ml-[250px] ml-0 mb-[100px] lg:mb-0">
-    <div class="flex justify-center items-center lg:pt-8 py-2 px-2 lg:px-0">
-        <h1 class="text-xl lg:text-2xl text-red-400">💖💖 Your each Refer user when Deposit you can get Extra 50 Taka 💖💖</h1>
+    <div class="flex flex-col justify-center items-center space-y-2 lg:pt-8 py-2 px-2 lg:px-0">
+        <h1 class="text-xl lg:text-2xl text-center text-red-400">💖 Your Each Refer User When Deposit You Can Get Extra 50 Taka 💖</h1>
+        <h1 class="text-xl lg:text-2xl text-white">💖 New User Get 200 Taka Bonus 💖</h1>
     </div>
     <div class="flex justify-center">
         <div class="lg:my-8 my-0 flex flex-col lg:flex-row justify-center lg:space-x-2 space-y-2 lg:space-y-0 lg:w-[80%] w-[95%]">
