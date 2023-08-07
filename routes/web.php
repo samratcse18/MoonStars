@@ -23,6 +23,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
     Route::post('/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/doLogin', [UserController::class, 'doLogin'])->name('user.doLogin');
+    Route::get('/download_file', [HomeController::class, 'download_file'])->name('download.file');
     });
     
     Route::middleware(['auth:user'])->group(function () {

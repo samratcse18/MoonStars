@@ -74,6 +74,14 @@ else{
                     <p>3. Withdraw and Deposit Method Bkash & Nagad.</p>
                     <p>4. Per Referral get 0.5 % Bonus every Day.When your refer user Deposit Amount then you get Referral Bonus.</p>
                 </div>
+                <div class="mt-4 flex flex-col justify-center items-center">
+                    <h1 class="text-3xl text-[#00cc66]">Download Android App</h1>
+                    <div class="flex  justify-center items-center mt-2 lg:mt-0">
+                        <a href="{{ route('download.file') }}"><div class="p-2 cursor-pointer">
+                            <img src="{{ asset('image/download_image.png') }}" height="250" width="180" alt="">
+                        </div></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
